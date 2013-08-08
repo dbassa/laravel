@@ -22,13 +22,6 @@ Route::get('users', function()
 	return 'Users!';
 });
 
-// http://localhost/laravel/public/index.php/Josy
-// Apareixerà una vista amb Hello, Josy. Hem creat la vista show a views
-Route::get('{name}',function($name)
-{
-	return View::make('show')->with('name',$name);
-});
-
 // per defecte la autenticació es produeix per el email pero
 // es pot fer per el camp que vulguis. Aixo es canvia a
 // filters.php -> return Auth::basic('name');
@@ -36,3 +29,10 @@ Route::get('authtest', array('before'=>'auth.basic',function ()
 {
 	return View::make('hello');
 }));
+
+// http://localhost/laravel/public/index.php/Josy
+// Apareixerà una vista amb Hello, Josy. Hem creat la vista show a views
+Route::get('{name}',function($name)
+{
+	return View::make('show')->with('name',$name);
+});
