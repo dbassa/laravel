@@ -15,3 +15,9 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+// accedir-hi amb http://localhost/laravel/public/index.php/users
+Route::get('users', function()
+{
+	return 'Users!';
+});
