@@ -21,3 +21,10 @@ Route::get('users', function()
 {
 	return 'Users!';
 });
+
+// http://localhost/laravel/public/index.php/Josy
+// Apareixerà una vista amb Hello, Josy. Hem creat la vista show a views
+Route::get('{name}',function($name)
+{
+	return View::make('show')->with('name',$name);
+});
