@@ -1,0 +1,96 @@
+Instal·lar laravel
+
+	mkidr laravel
+	cd laravel
+	git init
+	git remote add origin https://github.com/laravel/laravel.git
+	git pull origin master / git fetch origin
+
+
+Instal·lar composer:
+
+	> curl -sS https://getcomposer.org/installer | php
+	> mv composer.phar /usr/local/bin/composer
+	> composer install
+
+
+Genera Key Encriptació (config/app.php):
+
+	> php artisan key:generate
+
+
+Generar el fitxer que crea les taules (app/database/time_create_users_table.php):
+
+	> php artisan migrate:make create_users_table
+
+
+Generar les taules
+
+	> php artisan migrate
+
+
+Desfer la creacio de les taules
+
+	> php artisan migrate:rollback
+
+
+Emplenar la base de dades amb info dels usuaris:
+
+	1.- app/database/seed/UserTableSeeder.php
+
+		class UserTableSeeder extends Seeder {
+
+			/**
+			 * Run the database seeds.
+			 *
+			 * @return void
+			 */
+			public function run()
+			{
+				DB::table('users')->delete();
+
+				User::create(array(
+					'name'=>'Daniel Bassa',
+					'email'=>'info@shoppix.es',
+					'password'=>Hash::make('1234'),
+					'updated_at'=>date('Y-m-d H:m:s')
+				));
+
+				User::create(array(
+					'name'=>'Josy Lira',
+					'email'=>'josylira@hotmail.com',
+					'password'=>Hash::make('1234'),
+					'updated_at'=>date('Y-m-d H:m:s')
+				));
+
+			}
+
+		}
+
+	2.- app/database/seed/DatabaseSeeder.php
+
+		Descomentar la linia:
+
+			// $this->call('UserTableSeeder');
+
+
+	2.- > php artisan db:seed
+
+
+Protegir una url localhost/laravel/public/index.php/authtest:
+
+	El sistema ha de tenir una base de dades users amb email. Aixo és el que fem en el pas anterior.
+
+	// per defecte la autenticació es produeix per el email pero
+	// es pot fer per el camp que vulguis. Aixo es canvia a
+	// filters.php -> return Auth::basic('name');
+	Route::get('authtest', array('before'=>'auth.basic',function ()
+	{
+		return View::make('hello');
+	}));
+
+
+
+Instal·lar el bundle/extensio bob:
+
+	> php artisan bundle:install bob
